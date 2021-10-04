@@ -148,28 +148,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Future<bool> onWillPop() async {
     setState(() {
       page = pages.Home;
-        if (page == pages.AboutUs) {
-          page = pages.Home;
-          slide = pageView.Designing;
-          animationController.reverse();
-          animateToDesignPage();
-        } else {
-          page = pages.AboutUs;
-          design = designing.initDesigning;
-          slide = pageView.Designing;
-        }
-      });
-      pageViewDesigning();setState(() {
-        if (page == pages.AboutUs) {
-          page = pages.Home;
-          slide = pageView.Designing;
-          animationController.reverse();
-          animateToDesignPage();
-        } else {
-          page = pages.AboutUs;
-          design = designing.initDesigning;
-          slide = pageView.Designing;
-        }
+      if (page == pages.AboutUs) {
+        page = pages.Home;
+        slide = pageView.Designing;
+        animationController.reverse();
+        animateToDesignPage();
+      } else {
+        page = pages.AboutUs;
+        design = designing.initDesigning;
+        slide = pageView.Designing;
+      }
+    });
+    pageViewDesigning();
+    setState(() {
+      if (page == pages.AboutUs) {
+        page = pages.Home;
+        slide = pageView.Designing;
+        animationController.reverse();
+        animateToDesignPage();
+      } else {
+        page = pages.AboutUs;
+        design = designing.initDesigning;
+        slide = pageView.Designing;
+      }
 
       pageViewDesigning();
     });
@@ -213,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     //International Badge Details
     internationalBadgeTopMargin = height * 0.15;
-    internationalBadgeLeftMargin = width * 0.59;
+    internationalBadgeLeftMargin = width * 0.51;
 
     //buttonOpacity
     buttonOpacity = 0.0;
@@ -588,8 +589,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               ),
                               AnimatedOpacity(
                                 opacity: fadeInOpacity,
-                                duration: Duration(milliseconds: 700),
-                                curve: Curves.fastOutSlowIn,
+                                duration: Duration(milliseconds: 1000),
+                                curve: Curves.easeIn,
                                 child: Container(
                                   width: 180,
                                   margin: EdgeInsets.only(
@@ -991,13 +992,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       fontSize: 17, height: 1.3),
                                 ),
                               ),
-
-
                             ],
                           ),
                         ),
-
-                        
                       ],
                     ),
                   ),
@@ -1193,7 +1190,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             //Description
             AnimatedOpacity(
               opacity: descriptionOpacity,
-              duration: Duration(milliseconds: 100),
+              duration: Duration(milliseconds: 600),
               curve: Curves.fastOutSlowIn,
               child: Container(
                 margin:
@@ -1249,7 +1246,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 width: 180,
-                height: 80,
+                height: page == pages.Home ? 80 : 65,
                 margin: EdgeInsets.only(
                     top: hireUsTopMargin, left: hireUsLeftMargin),
                 decoration: BoxDecoration(
@@ -1307,7 +1304,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             'images/Audi/audi ($i).png',
           ),
           context);
-      print(i);
     }
   }
 }
@@ -1344,7 +1340,7 @@ class _ModelViewsState extends State<ModelViews> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 300,
+            height: 284,
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.black, width: 2)),
             child: Hero(
@@ -1352,7 +1348,7 @@ class _ModelViewsState extends State<ModelViews> {
               child: ImageView360(
                 key: UniqueKey(),
                 imageList: widget.imageList,
-                autoRotate: false,
+                autoRotate: true,
                 rotationCount: 0,
                 rotationDirection: RotationDirection.clockwise,
                 frameChangeDuration: Duration(milliseconds: 60),
@@ -1394,6 +1390,26 @@ class _ModelViewsState extends State<ModelViews> {
                 fontSize: 20,
               ),
             ),
+          ),
+          Column(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(bottom: 5),
+                  height: 5,
+                  width: 180,
+                  decoration: BoxDecoration(color: Colors.black)),
+              Container(
+                  margin: EdgeInsets.only(bottom: 5),
+                  height: 5,
+                  width: 100,
+                  decoration:
+                      BoxDecoration(color: Colors.black.withOpacity(0.6))),
+              Container(
+                  height: 5,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(color: Colors.black.withOpacity(0.2))),
+            ],
           ),
           Container(
             margin: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 0),
@@ -1558,6 +1574,16 @@ class _ModelViewsState extends State<ModelViews> {
               ),
             ),
           ),
+          Spacer(),
+          Container(
+            child: Text(
+              'All rights reserved @2021',
+              style: GoogleFonts.sriracha(
+                  fontSize: 15,
+                  color: Colors.black.withOpacity(0.3),
+                  fontStyle: FontStyle.italic),
+            ),
+          )
         ],
       ),
     );
